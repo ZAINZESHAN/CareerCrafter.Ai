@@ -68,11 +68,11 @@ const Navbar = () => {
         },
         ...(user
             ? [
-                {
-                    key: "dashboard",
-                    label: <Link to="/dashboard">Dashboard</Link>,
-                },
-            ]
+                  {
+                      key: "dashboard",
+                      label: <Link to="/dashboard">Dashboard</Link>,
+                  },
+              ]
             : []),
         {
             key: "about",
@@ -86,86 +86,114 @@ const Navbar = () => {
 
     const userMenuItems = user
         ? [
-            {
-                key: "profile",
-                label: <Link to="/profile">👤 Profile</Link>,
-            },
-            {
-                type: "divider",
-            },
-            {
-                key: "logout",
-                label: (
-                    <span onClick={handleLogout} style={{ color: "red" }}>
-                        🔓 Logout
-                    </span>
-                ),
-            },
-        ]
+              {
+                  key: "profile",
+                  label: <Link to="/profile">👤 Profile</Link>,
+              },
+              {
+                  type: "divider",
+              },
+              {
+                  key: "logout",
+                  label: (
+                      <span onClick={handleLogout} style={{ color: "red" }}>
+                          🔓 Logout
+                      </span>
+                  ),
+              },
+          ]
         : [
-            {
-                key: "login",
-                label: <Link to="/login">🔐 Login</Link>,
-            },
-            {
-                key: "signup",
-                label: <Link to="/signup">📝 Sign Up</Link>,
-            },
-        ];
+              {
+                  key: "login",
+                  label: <Link to="/login">🔐 Login</Link>,
+              },
+              {
+                  key: "signup",
+                  label: <Link to="/signup">📝 Sign Up</Link>,
+              },
+          ];
 
     return (
         <>
             <Header
-                className="shadow-md sticky top-0 z-50 px-6 flex justify-between items-center"
+                className="shadow-md sticky top-0 z-50"
                 style={{
                     background: "#f5faff",
                     padding: "0 20px",
-                    flexWrap: "wrap",
-                    position: "relative",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexWrap: "nowrap",
+                    overflow: "visible",
                 }}
             >
                 {/* Brand */}
-                <div className="text-xl font-bold text-blue-600">
+                <div
+                    className="text-[20px] sm:text-[22px] md:text-[26px] font-bold text-[#1677ff]"
+                    style={{ flexShrink: 0 }}
+                >
                     <Link to="/">CareerCrafter.AI</Link>
                 </div>
 
                 {/* Desktop Menu */}
                 {!isMobile && (
-                    <div className="flex-1 flex justify-center">
-                        <Menu
-                            mode="horizontal"
-                            selectedKeys={[selectedKey]}
-                            items={menuItems}
-                            style={{ borderBottom: "none", fontWeight: 500, background: "transparent" }}
-                        />
-                    </div>
+                    <Menu
+                        mode="horizontal"
+                        selectedKeys={[selectedKey]}
+                        items={menuItems}
+                        style={{
+                            borderBottom: "none",
+                            fontWeight: 500,
+                            background: "transparent",
+                            flex: 1,
+                            justifyContent: "center",
+                            display: "flex",
+                            overflow: "visible",
+                        }}
+                    />
                 )}
 
-                {/* Right Controls */}
-                <div className="flex items-center gap-4">
-                    {/* Search Icon (always visible) */}
+                {/* Right Icons */}
+                <div
+                    className="flex items-center gap-4"
+                    style={{ flexShrink: 0 }}
+                >
+                    {/* Search Icon */}
                     <div style={{ position: "relative" }}>
                         <SearchOutlined
-                            style={{ fontSize: 20, cursor: "pointer", position:"relative", top: 4}}
+                            style={{
+                                fontSize: 20,
+                                cursor: "pointer",
+                                position: "relative",
+                                top: 4,
+                            }}
                             onClick={() => setShowSearch((prev) => !prev)}
                         />
                     </div>
 
-                    {/* Profile (visible on desktop) */}
+                    {/* Profile */}
                     {!isMobile && (
-                        <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+                        <Dropdown
+                            menu={{ items: userMenuItems }}
+                            placement="bottomRight"
+                        >
                             <Space style={{ cursor: "pointer" }}>
                                 <Avatar icon={<UserOutlined />} />
                                 {user && (
-                                    <span className="text-blue-600 font-semibold tracking-wide uppercase" style={{ fontSize: "1rem" }}>
-                                        {user.name.split(" ")[0].toUpperCase()}
+                                    <span
+                                        className="text-[#1677ff] font-semibold tracking-wide uppercase"
+                                        style={{ fontSize: "1rem" }}
+                                    >
+                                        {user.name
+                                            .split(" ")[0]
+                                            .toUpperCase()}
                                     </span>
                                 )}
                             </Space>
                         </Dropdown>
                     )}
 
-                    {/* Menu Icon (visible on mobile only) */}
+                    {/* Mobile Menu Button */}
                     {isMobile && (
                         <Button
                             icon={<MenuOutlined />}
@@ -173,31 +201,33 @@ const Navbar = () => {
                         />
                     )}
                 </div>
-
-                {/* Desktop floating search input */}
-                {/* {!isMobile && showSearch && (
-                    <div
-                        style={{
-                            position: "absolute",
-                            right: 150, // ✅ adjust this value
-                            top: "75%",
-                            transform: "translateY(-50%)",
-                            zIndex: 1000,
-                        }}
-                    >
-                        <Input.Search
-                            placeholder="Search..."
-                            autoFocus
-                            onBlur={() => setShowSearch(false)}
-                            style={{ width: 300 }}
-                            onSearch={(value) => console.log("Search:", value)}
-                        />
-                    </div>
-                )} */}
             </Header>
 
-            {/* Mobile Search input below navbar */}
-            {showSearch && (
+            {/* Search Box (non-mobile) */}
+            {!isMobile && showSearch && (
+                <div
+                    style={{
+                        position: "absolute",
+                        right: 100,
+                        top: 70,
+                        zIndex: 999,
+                        background: "white",
+                        padding: 8,
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                    }}
+                >
+                    <Input.Search
+                        placeholder="Search..."
+                        autoFocus
+                        onBlur={() => setShowSearch(false)}
+                        style={{ width: 300 }}
+                        onSearch={(value) => console.log("Search:", value)}
+                    />
+                </div>
+            )}
+
+            {/* Mobile Search below navbar */}
+            {isMobile && showSearch && (
                 <div className="px-6 py-2 shadow-md bg-white">
                     <Input.Search
                         placeholder="Search..."
@@ -206,7 +236,7 @@ const Navbar = () => {
                 </div>
             )}
 
-            {/* Drawer for Mobile Menu */}
+            {/* Drawer Menu (Mobile) */}
             <Drawer
                 title="Menu"
                 placement="right"
@@ -223,8 +253,13 @@ const Navbar = () => {
                     <Dropdown menu={{ items: userMenuItems }} placement="bottomLeft">
                         <div className="cursor-pointer flex items-center gap-2 mt-2">
                             <Avatar icon={<UserOutlined />} />
-                            <span className="text-blue-600 font-semibold uppercase" style={{ fontSize: "1rem" }}>
-                                {user ? user.name.split(" ")[0].toUpperCase() : "ACCOUNT"}
+                            <span
+                                className="text-[#1677ff] font-semibold uppercase"
+                                style={{ fontSize: "1rem" }}
+                            >
+                                {user
+                                    ? user.name.split(" ")[0].toUpperCase()
+                                    : "ACCOUNT"}
                             </span>
                         </div>
                     </Dropdown>

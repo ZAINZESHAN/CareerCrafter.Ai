@@ -1,9 +1,10 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from 'express'
 import cors from 'cors'
 import userRouter from './Routes/userRoute.js'
-import dotenv from 'dotenv'
 import connectDB from './config/mongoDb.js'
-dotenv.config()
+import careerRouter from './Routes/careerAnalysisRoute.js'
 
 // App Config
 const app = express()
@@ -16,6 +17,7 @@ app.use(cors())
 
 // Api End points
 app.use('/api/user', userRouter)
+app.use('/api/career', careerRouter)
 
 app.get('/', (req, res) => {
     res.send("Api Working")
