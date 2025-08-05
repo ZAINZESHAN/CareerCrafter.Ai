@@ -1,0 +1,140 @@
+Project Name: CareerCrafter.AI
+
+Overview:
+CareerCrafter.AI is an intelligent, AI-powered career planning and job readiness platform. It helps users identify suitable career paths, build resumes, analyze career goals, practice for interviews, and track skill development. It is designed as a full-stack SaaS application with dynamic frontend and backend features.
+
+Tech Stack:
+
+Frontend: React.js, Tailwind CSS, Ant DesignBackend: Node.js, Express.jsDatabase: MongoDBAuthentication: JWT (JSON Web Tokens)Email Service: EmailJS (Contact Form Integration)AI Integration: (Planned via OpenAI API or similar for Resume & Interview features)Hosting: Vercel (Frontend), Render/Heroku (Backend), MongoDB Atlas (Database)
+
+Core Features:
+
+✅ 1. Home Page
+
+Hero Section with brand image, headline, subheading, CTA button (Get Started).
+
+Navigation bar with dynamic login/signup or user profile/logout.
+
+Features section (only visible to logged-in users).
+
+Professional footer with brand info, links, and contact.
+
+✅ 2. Dashboard
+
+Personalized dashboard visible only after login.
+
+Navigation to features like Goal Analysis, Resume Builder, etc.
+
+✅ 3. Career Goal Analyzer
+
+Input form: Goals, Interests, Strengths.
+
+Validates all fields.
+
+On submission, form hides and AI-generated suggestions are shown.
+
+Top-right button allows re-editing the form.
+
+Clean, styled suggestion card with headings.
+
+✅ 4. Contact Page
+
+Contact form with fields: Name, Email, Message (all required).
+
+Styled input fields with labels.
+
+Submit button (right-aligned, responsive).
+
+Integrated with EmailJS to send messages to: zainzeeshan652@gmail.com.
+
+✅ 5. About Page
+
+Description about the platform.
+
+Sections: Mission, What We Offer.
+
+Feature list links to respective pages if user is logged in.
+
+✅ 6. Profile Page
+
+Displays user info.
+
+Future functionality includes edit profile and track activities.
+
+🔜 Upcoming Features:
+
+🚧 Resume Builder (Next in Development)
+
+Form to collect resume data (Name, Education, Skills, etc).
+
+Generate AI-powered resume preview.
+
+Allow downloading/exporting PDF.
+
+🚧 Mock Interview Practice
+
+Set of questions based on job title/role.
+
+Voice input or text-based answers.
+
+AI feedback and scoring.
+
+🚧 Skill Tracking
+
+User dashboard shows skill badges or levels.
+
+Suggest learning paths and resources.
+
+User Flow:
+
+User lands on homepage.
+
+Can view About and Contact.
+
+Logs in or signs up.
+
+Redirected to Dashboard.
+
+Can access features like Goal Analyzer, Resume Builder, etc.
+
+Uses Contact for support, Profile to view info.
+
+Authentication Flow:
+
+JWT-based login/signup.
+
+Protected routes (Dashboard, Goal Analyzer, etc).
+
+Navbar updates dynamically based on auth state.
+
+Responsiveness:
+
+Fully responsive for mobile, tablet, and desktop.
+
+Navbar collapses into hamburger menu on small screens.
+
+Consistent layout using Tailwind grid and spacing utilities.
+
+Design Theme:
+
+Primary color: #1677ff (Blue)
+
+Text: Black / Gray
+
+UI Library: Ant Design + Tailwind CSS
+
+Icons: Ant Design Icons
+
+Deployment:
+
+Frontend: Vercel
+
+Backend: Render or Railway
+
+Database: MongoDB Atlas
+
+Email: EmailJS
+
+Team Member:
+
+Zain Zeeshan (Full Stack Developer)

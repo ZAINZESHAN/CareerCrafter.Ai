@@ -17,11 +17,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/Footer';
 import NeedHelp from './components/NeedHelp';
+import ScrollTop from './components/ScrollTop';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[4vw]'>
       <ToastContainer />
+      <ScrollTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -31,12 +34,62 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/goalanalysis" element={<GoalAnalysis />} />
-        <Route path="/jobmatching" element={<JobMatching />} />
-        <Route path="/resumebuilder" element={<ResumeBuilder />} />
-        <Route path="/skilltracker" element={<SkillTracker />} />
-        <Route path="/mockinterview" element={<MockInterview />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/goalanalysis"
+          element={
+            <ProtectedRoute>
+              <GoalAnalysis />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/jobmatching"
+          element={
+            <ProtectedRoute>
+              <JobMatching />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/resumebuilder"
+          element={
+            <ProtectedRoute>
+              <ResumeBuilder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/skilltracker"
+          element={
+            <ProtectedRoute>
+              <SkillTracker />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/mockinterview"
+          element={
+            <ProtectedRoute>
+              <MockInterview />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <NeedHelp />
       <Footer />

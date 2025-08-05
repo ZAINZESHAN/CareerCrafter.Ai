@@ -68,16 +68,18 @@ const GoalAnalysis = () => {
     <div className="max-w-2xl mx-auto pt-6 px-0 sm:px-4">
       <div className="mb-4">
         <div className="text-center">
-          <h1 className="text-[19px] sm:text-[26px] font-semibold" style={{fontWeight: "600"}}>Career Goal Analyzer</h1>
+          <h1 className="text-[19px] sm:text-[26px] font-semibold" style={{ fontWeight: "700" }}>Career Goal Analyzer</h1>
           <p className="text-[13px] sm:text-[15px] text-gray-600 pb-1">
             Fill out the form below to receive personalized AI career insights based on your strengths and goals.
           </p>
         </div>
 
         {!formVisible && (
-          <Button onClick={() => setFormVisible(true)} type="primary">
-            Edit Form
-          </Button>
+          <div className="text-right">
+            <Button onClick={() => setFormVisible(true)} type="primary">
+              Edit Form
+            </Button>
+          </div>
         )}
       </div>
 
@@ -178,7 +180,7 @@ const GoalAnalysis = () => {
       {result && (
         <div className="mt-8 bg-blue-50 border border-blue-200 shadow-md rounded-xl">
           <Card
-            title={<div className="text-[20px] font-bold text-blue-700">🚀 Career Suggestions</div>}
+            title={<div className="text-[20px] font-bold text-[#1677ff]">🚀 Career Suggestions</div>}
             bordered={false}
             className="bg-transparent"
             bodyStyle={{ padding: "1.25rem" }}
@@ -190,10 +192,10 @@ const GoalAnalysis = () => {
                 rehypePlugins={[rehypeRaw]}
                 components={{
                   h1: ({ node, ...props }) => (
-                    <h1 className="text-2xl font-bold text-blue-800" {...props} />
+                    <h1 className="text-xl font-bold text-[#1677ff]" style={{ fontWeight: "600" }} {...props} />
                   ),
                   h2: ({ node, ...props }) => (
-                    <h2 className="text-xl font-semibold text-blue-700" {...props} />
+                    <h2 className="text-xl font-semibold text-[#1677ff]" style={{ fontWeight: "600" }} {...props} />
                   ),
                   p: ({ node, ...props }) => (
                     <p className="mb-3 leading-relaxed" {...props} />

@@ -4,7 +4,8 @@ import express from 'express'
 import cors from 'cors'
 import userRouter from './Routes/userRoute.js'
 import connectDB from './config/mongoDb.js'
-import careerRouter from './Routes/careerAnalysisRoute.js'
+import careerRouter from './Routes/careerRoute.js'
+import resumeRouter from "./Routes/resume.Route.js";
 
 // App Config
 const app = express()
@@ -18,6 +19,7 @@ app.use(cors())
 // Api End points
 app.use('/api/user', userRouter)
 app.use('/api/career', careerRouter)
+app.use('/api/resume', resumeRouter)
 
 app.get('/', (req, res) => {
     res.send("Api Working")
