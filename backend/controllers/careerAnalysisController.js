@@ -68,4 +68,77 @@ Make the tone friendly and supportive. Avoid complex words. Keep the explanation
     }
 };
 
-export default analyzeCareer;
+const generateResume = async (req, res) => {
+    const { name, email, phone, education, experience, skills, projects } = req.body
+    console.log("Request Body:", req.body);
+
+    const prompt = `You are an expert resume builder AI.
+
+    Based on the following user details, create a professional resume in clean, structured text format (not markdown, no **, no symbols), with clear headings.
+
+    User Details:
+    Name: ${name}
+    Email: ${email}
+    Phone: ${phone}
+    Education: ${education}
+    Experience: ${experience}
+    Skills: ${skills}
+    Projects: ${projects}
+
+    Format the output like this:
+
+    ==============================
+    Name: [User's Name]
+    Email: [Email]
+    Phone: [Phone Number]
+    ==============================
+
+    Summary:
+    [A brief 2-3 line summary about the user]
+
+    Education:
+    [Degree, Institute, Year]
+
+    Experience:
+    [Job Title, Company, Duration]
+    - Responsibilities or achievements
+
+    Skills:
+    [List of skills separated by commas]
+
+    Projects:
+    - [Project Title]: [1-line description]
+
+    Make it clean, formal, and suitable for job applications. Avoid markdown or special characters. Use only plain text with line breaks.`;
+
+    try {
+        // DEBUG: Check if API key is loaded
+        console.log("API Key Loaded:", process.env.TOGETHER_API_KEY);
+
+        const response = await axios.post(
+            "https://api.together.xyz/v1/chat/completions",
+            {
+                model: "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+                messages: [{ role: "user", content: prompt }],
+                temperature: 0.7,
+                max_tokens: 1500,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.TOGETHER_API_KEY}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        const result = response.data.choices[0].message.content;
+        res.json({ success: true, result });
+
+    } catch (error) {
+        console.error("API Error:", error.response?.data || error.message);
+        return res.status(500).json({ success: false, error: error.response?.data?.error || error.message, });
+    }
+
+}
+
+export { analyzeCareer, generateResume };
