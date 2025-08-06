@@ -11,7 +11,7 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const GoalAnalysis = () => {
-  const { backend_Url } = useContext(AuthContext);
+  const { backend_Url, token } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     interests: "",
@@ -50,12 +50,12 @@ const GoalAnalysis = () => {
   const analyzeCareer = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(`${backend_Url}/api/career/analyze`, formData);
+      const response = await axios.post(`${backend_Url}/api/career/analyze`, formData, { headers: { token: token } });
       if (response.data.success) {
         setResult(response.data.result);
         resetForm();
       } else {
-        toast.error("AI failed to analyze your career path.");
+        toast.error(response.data.message || "AI failed to analyze your career path.");
       }
     } catch (err) {
       toast.error(err?.response?.data?.message || "Something went wrong.");

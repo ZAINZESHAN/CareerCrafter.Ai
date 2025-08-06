@@ -7,53 +7,45 @@ const generateResume = async (req, res) => {
 
     const userId = req.userId;
     const prompt = `
-You are a professional resume-building AI.
+                    You are a professional resume-building AI.
+                    Your task is to generate a simple, clean, and professional resume using the user’s information below. Follow these rules:
+                    Rules:
+                    Keep all sections structured and readable.
+                    Always include all sections: Personal Info, Summary, Education, Experience, Skills, and Projects.
+                    Highlight section headings.
+                    Remove any unnecessary lines or characters.
+                    User Info:
+                    Name: ${name}
+                    Email: ${email}
+                    Phone: ${phone}
+                    Education: ${education}
+                    Experience: ${experience}
+                    Skills: ${skills}
+                    Projects: ${projects}
 
-Your task is to generate a simple, clean, and professional resume using the user’s information below. The resume will be displayed in a web application, so follow these strict rules:
+                    Resume Structure:
+                    Name: ${name}
+                    Email: ${email}
+                    Phone: ${phone}
 
-Rules:
-- Keep all sections structured, aligned, and readable.
-- If any field is missing, use relevant default content.
-- Keep it concise but effective.
-- Always include all sections: Personal Info, Summary, Education, Experience, Skills, and Projects.
+                    Professional Summary:
+                    A motivated software developer passionate about building modern web applications.
+                    Education:
+                    ${education}
+                    Work Experience:
+                    ${experience || "I am a fresher with no formal experience."}
+                    Skills:
+                    ${skills}
+                    Projects:
+                    ${projects || "Portfolio Website – Created using React."}
 
-User Info:
-- Name: ${name || "John Doe"}
-- Email: ${email || "johndoe@email.com"}
-- Phone: ${phone || "+123456789"}
-- Education: ${education || "BSc in Computer Science, XYZ University, 2022"}
-- Experience: ${experience || "Junior Developer at ABC Tech (2022–Present). Built and maintained web applications using React and Node.js."}
-- Skills: ${skills || "JavaScript, React, Node.js, MongoDB, HTML, CSS"}
-- Projects: ${projects || "Portfolio Website – Created a personal portfolio using React. | Chat App – Built a real-time chat app using Socket.io."}
+                    Additional Instructions:
+                    Ensure the resume is neat and UI-friendly.
+                    Remove decorative lines or symbols.`
 
-==============================
-Name: ${name || "John Doe"}
-Email: ${email || "johndoe@email.com"}
-Phone: ${phone || "+123456789"}
-==============================
-
-Professional Summary:
-A motivated and skilled software developer with experience in building modern web applications. Passionate about learning new technologies and delivering high-quality work in collaborative environments.
-
-Education:
-${education || "BSc in Computer Science, XYZ University, 2022"}
-
-Work Experience:
-${experience || "Junior Developer at ABC Tech (2022–Present). Built and maintained web applications using React and Node.js."}
-
-Skills:
-${skills || "JavaScript, React, Node.js, MongoDB, HTML, CSS"}
-
-Projects:
-${projects || "Portfolio Website – Created a personal portfolio using React. | Chat App – Built a real-time chat app using Socket.io."}
-
-==============================
-Make sure the above resume looks neat, readable, and UI-friendly with proper line breaks and spacing.
-`;
 
     try {
-        const response = await axios.post(
-            "https://openrouter.ai/api/v1/chat/completions",
+        const response = await axios.post("https://openrouter.ai/api/v1/chat/completions",
             {
                 model: "mistralai/mistral-7b-instruct:free",
                 messages: [{ role: "user", content: prompt }],
@@ -68,7 +60,6 @@ Make sure the above resume looks neat, readable, and UI-friendly with proper lin
 
         const result = response.data.choices[0]?.message?.content || "No resume generated.";
 
-        // Save to MangoDB
         const saveResume = new resumeModel({
             userId: userId,
             name,
@@ -80,12 +71,38 @@ Make sure the above resume looks neat, readable, and UI-friendly with proper lin
         })
 
         await saveResume.save();
-
         res.json({ success: true, result });
+
     } catch (error) {
         console.error("OpenRouter API Error:", error.response?.data || error.message);
         res.status(500).json({ success: false, error: error.message });
     }
 };
 
-export default generateResume
+const getAllResumes = async (req, res) => {
+    try {
+
+        const userId = req.userId;
+        const getResumes = await resumeModel.find({ userId }).sort({ createdAt: -1 });
+        res.json({ success: true, resumes: getResumes })
+
+    } catch (error) {
+        console.log("Error fetching resumes:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch resumes." });
+    }
+}
+
+const deleteResume = async (req, res) => {
+    try {
+
+        const resumeId = req.params.id;
+        await resumeModel.findByIdAndDelete(resumeId);
+        res.json({ success: true, message: "Resume deleted successfully." })
+
+    } catch (error) {
+        console.error("Error deleting resume:", error);
+        res.status(500).json({ success: false, error: "Failed to delete resume." });
+    }
+}
+
+export {deleteResume, generateResume, getAllResumes }

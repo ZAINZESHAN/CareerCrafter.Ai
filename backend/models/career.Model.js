@@ -1,7 +1,7 @@
 // models/CareerAnalysis.js
 import mongoose from 'mongoose';
 
-const careerAnalysisSchema = new mongoose.Schema({
+const careerSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -29,4 +29,4 @@ const careerAnalysisSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.models.careerAnalysis || mongoose.model('careerAnalysis', careerAnalysisSchema);
+export default mongoose.models.career || mongoose.model('career', careerSchema);

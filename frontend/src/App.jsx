@@ -19,6 +19,8 @@ import Footer from './components/Footer';
 import NeedHelp from './components/NeedHelp';
 import ScrollTop from './components/ScrollTop';
 import ProtectedRoute from './components/ProtectedRoute';
+import Resume from './pages/Resume';
+import Career from './pages/Career';
 
 function App() {
   return (
@@ -34,6 +36,22 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/career/:careerId"
+          element={
+            <ProtectedRoute>
+              <Career />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/resume/:resumeId"
+          element={
+            <ProtectedRoute>
+              <Resume />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/dashboard"
           element={

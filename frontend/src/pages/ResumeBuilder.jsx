@@ -54,7 +54,7 @@ const ResumeBuilder = () => {
         setResult(response.data.result);
         resetForm();
       } else {
-        toast.error("AI failed to generate your resume.");
+        toast.error(response.data.message || "Failed to generate resume.");
       }
     } catch (err) {
       toast.error(err?.response?.data?.message || "Something went wrong.");
