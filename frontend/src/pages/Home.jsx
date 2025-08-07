@@ -48,20 +48,6 @@ const Home = () => {
       icon: <BarChartOutlined style={{ fontSize: "28px", color: "#1890ff" }} />,
       path: "/mock-interview",
     },
-    {
-      title: "Job Matching",
-      description:
-        "Discover the best jobs based on your selected skills and experience level.",
-      icon: <SearchOutlined style={{ fontSize: "28px", color: "#1890ff" }} />,
-      path: "/job-matcher",
-    },
-    {
-      title: "Skill Tracker",
-      description:
-        "Track your progress, completed tasks, and keep improving continuously.",
-      icon: <LineChartOutlined style={{ fontSize: "28px", color: "#1890ff" }} />,
-      path: "/skill-tracker",
-    },
   ];
 
   const steps = [

@@ -1,7 +1,6 @@
 import axios from "axios";
 import careerModel from "../models/career.Model.js";
 
-// ---- Career Analyzer Function ----
 const analyzeCareer = async (req, res) => {
     const { interests, skills, goals, education, experience, traits } = req.body;
     const userId = req.userId

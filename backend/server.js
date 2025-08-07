@@ -6,6 +6,7 @@ import userRouter from './Routes/userRoute.js'
 import connectDB from './config/mongoDb.js'
 import careerRouter from './Routes/careerRoute.js'
 import resumeRouter from "./Routes/resume.Route.js";
+import MockRouter from "./Routes/mockInterviewRoute.js";
 
 // App Config
 const app = express()
@@ -23,6 +24,7 @@ app.use(cors({
 app.use('/api/user', userRouter)
 app.use('/api/career', careerRouter)
 app.use('/api/resume', resumeRouter)
+app.use('/api/mock', MockRouter)
 
 app.get('/', (req, res) => {
     res.send("Api Working")

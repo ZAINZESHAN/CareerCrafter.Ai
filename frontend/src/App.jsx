@@ -6,13 +6,10 @@ import Navbar from '../src/components/Navbar';
 import Home from '../src/pages/Home';
 import Dashboard from '../src/pages/Dashboard';
 import GoalAnalysis from '../src/pages/GoalAnalysis';
-import JobMatching from '../src/pages/JobMatching';
 import MockInterview from '../src/pages/MockInterview';
 import ResumeBuilder from '../src/pages/ResumeBuilder';
-import SkillTracker from '../src/pages/SkillTracker';
 import About from '../src/pages/About';
 import Contact from '../src/pages/Contact';
-import NotFound from '../src/pages/NotFound';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/Footer';
@@ -32,7 +29,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/notfound" element={<NotFound />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
@@ -69,26 +65,10 @@ function App() {
           }
         />
         <Route
-          path="/jobmatching"
-          element={
-            <ProtectedRoute>
-              <JobMatching />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/resumebuilder"
           element={
             <ProtectedRoute>
               <ResumeBuilder />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/skilltracker"
-          element={
-            <ProtectedRoute>
-              <SkillTracker />
             </ProtectedRoute>
           }
         />

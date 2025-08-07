@@ -42,15 +42,10 @@ const About = () => {
                   <Link to="/resumebuilder" className=" text-black hover:text-[#1677ff] hover:underline">
                     AI resume builder
                   </Link>
-                </li>
+                 </li>
                 <li>
                   <Link to="/mockinterview" className=" text-black hover:text-[#1677ff] hover:underline">
                     Mock interviews
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/skilltracker" className=" text-black hover:text-[#1677ff] hover:underline">
-                    Skill tracking and learning suggestions
                   </Link>
                 </li>
               </>

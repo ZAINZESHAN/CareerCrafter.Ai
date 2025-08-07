@@ -29,22 +29,10 @@ const tools = [
     heading: "Resume Builder",
   },
   {
-    title: "Get matched with jobs based on your skills and interests.",
-    icon: <SearchOutlined style={{ fontSize: "28px", color: "#1677ff" }} />,
-    link: "/jobmatching",
-    heading: "Job Matching",
-  },
-  {
     title: "Practice real interview questions and get AI feedback.",
     icon: <UserOutlined style={{ fontSize: "28px", color: "#1677ff" }} />,
     link: "/mockinterview",
     heading: "Mock Interview",
-  },
-  {
-    title: "Track and improve your skills for better opportunities.",
-    icon: <BarChartOutlined style={{ fontSize: "28px", color: "#1677ff" }} />,
-    link: "/skilltracker",
-    heading: "Skill Tracker",
   },
 ];
 
@@ -126,7 +114,7 @@ const Dashboard = () => {
               resumes.map((resume) => (
                 <li
                   key={resume._id}
-                  className="cursor-pointer hover:text-blue-600"
+                  className="cursor-pointer hover:text-[#1677ff]"
                   onClick={() => navigate(`/resume/${resume._id}`)}
                 >
                   {resume.name || "Your Resumes"}
@@ -182,7 +170,7 @@ const Dashboard = () => {
         </h2>
 
         {/* Tool Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tools.map((tool, index) => (
             <Link to={tool.link} key={index}>
               <Card
