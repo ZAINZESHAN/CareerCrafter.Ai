@@ -11,7 +11,6 @@ import ServerlessHttp from "serverless-http";
 
 // App Config
 const app = express()
-const port = process.env.PORT || 4000
 connectDB()
 
 // Middlewares
