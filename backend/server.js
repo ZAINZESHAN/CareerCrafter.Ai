@@ -1,34 +1,32 @@
-import dotenv from "dotenv";
-dotenv.config();
+// /api/index.js
 import express from 'express'
 import cors from 'cors'
-import userRouter from './Routes/userRoute.js'
-import connectDB from './config/mongoDb.js'
-import careerRouter from './Routes/careerRoute.js'
-import resumeRouter from "./Routes/resume.Route.js";
-import MockRouter from "./Routes/mockInterviewRoute.js";
+import 'dotenv/config'
+import serverless from 'serverless-http'
 
-// App Config
+import connectDB from '../config/mongodb.js'
+import connectCloudinary from '../config/cloudinary.js'
+import userRouter from '../routes/userRoute.js'
+import productRouter from '../routes/productRoute.js'
+import cartRouter from '../routes/cartRoute.js'
+import orderRouter from '../routes/orderRoute.js'
+
 const app = express()
-const port = process.env.PORT || 4000
 connectDB()
+connectCloudinary()
 
-// Middlewares
 app.use(express.json())
-app.use(cors({
-    origin: "http://localhost:5173", // allow frontend
-    credentials: true
-}))
+app.use(cors())
 
-// Api End points
 app.use('/api/user', userRouter)
-app.use('/api/career', careerRouter)
-app.use('/api/resume', resumeRouter)
-app.use('/api/mock', MockRouter)
+app.use('/api/product', productRouter)
+app.use('/api/cart', cartRouter)
+app.use('/api/order', orderRouter)
 
 app.get('/', (req, res) => {
-    res.send("Api Working")
+  res.send('API Working')
 })
 
-
-app.listen(port, () => console.log('Server started on PORT: ' + port))
+// 🚫 REMOVE app.listen()
+// ✅ Export for Vercel
+export const handler = serverless(app)
