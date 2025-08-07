@@ -7,10 +7,10 @@ import connectDB from './config/mongoDb.js'
 import careerRouter from './Routes/careerRoute.js'
 import resumeRouter from "./Routes/resume.Route.js";
 import MockRouter from "./Routes/mockInterviewRoute.js";
-import ServerlessHttp from "serverless-http";
 
 // App Config
 const app = express()
+const port = process.env.PORT || 4000
 connectDB()
 
 // Middlewares
@@ -31,4 +31,4 @@ app.get('/', (req, res) => {
 })
 
 
-export const handler = ServerlessHttp(app)
+app.listen(port, () => console.log('Server started on PORT : ' + port))
