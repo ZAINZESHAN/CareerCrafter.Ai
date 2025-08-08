@@ -37,7 +37,7 @@ const tools = [
 ];
 
 const Dashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [resumes, setResumes] = useState([]);
   const [careerPaths, setCareerPaths] = useState([]);
   const { token, backend_Url } = useContext(AuthContext)
@@ -111,14 +111,14 @@ const Dashboard = () => {
           <h3 className="text-md font-semibold mb-2">📄 Your Resumes</h3>
           <ul className="text-sm space-y-2 mb-6">
             {resumes.length > 0 ? (
-              resumes.map((resume) => (
+              resumes.map((resume, index) => (
                 <li
                   key={resume._id}
                   className="cursor-pointer hover:text-[#1677ff]"
                   onClick={() => navigate(`/resume/${resume._id}`)}
                 >
-                  {resume.name || "Your Resumes"}
-                  <span className="text-xs text-gray-400 ml-22">
+                  {index + 1 + " Resumes"}
+                  <span className="text-xs text-gray-400 ml-24">
                     {new Date(resume.createdAt).toLocaleDateString()}
                   </span>
                 </li>
@@ -131,13 +131,16 @@ const Dashboard = () => {
           <h3 className="text-md font-semibold mb-2">📊 Career Analyses</h3>
           <ul className="text-sm space-y-2">
             {careerPaths.length > 0 ? (
-              careerPaths.map((career) => (
+              careerPaths.map((career, index) => (
                 <li
                   key={career._id}
                   className="cursor-pointer hover:text-blue-600"
                   onClick={() => navigate(`/career/${career._id}`)}
                 >
-                  {career.title || "Career Plan"}
+                  {index + 1 + " Plans"}
+                  <span className="text-xs text-gray-400 ml-30">
+                    {new Date(career.createdAt).toLocaleDateString()}
+                  </span>
                 </li>
               ))
             ) : (

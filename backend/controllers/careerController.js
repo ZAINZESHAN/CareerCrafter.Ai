@@ -4,49 +4,49 @@ import careerModel from "../models/career.Model.js";
 const analyzeCareer = async (req, res) => {
     const { interests, skills, goals, education, experience, traits } = req.body;
     const userId = req.userId
-    console.log(userId)
 
-    const prompt = `You are an advanced AI career advisor.
+    const prompt = `
+You are a professional career advisor. When giving results:
+- Write section headings in Markdown bold (e.g., **Heading Name**).
+- Use short paragraphs under each heading.
+- Avoid unnecessary symbols.
+- Keep content clean, professional, and easy to read.
 
-            Using the user's details below, generate a well-structured, professional career planning report 
-            that is easy to read in a web interface (HTML-friendly, no markdown or special characters).
+Generate a structured, professional career planning report in plain text (HTML-friendly, no markdown, no special symbols).
 
-            User Profile:
-            - Interests: ${interests}
-            - Skills: ${skills}
-            - Career Goals: ${goals}
-            - Education: ${education}
-            - Experience: ${experience}
-            - Personality Traits: ${traits}
+User Profile:
+- Interests: ${interests}
+- Skills: ${skills}
+- Career Goals: ${goals}
+- Education: ${education}
+- Experience: ${experience}
+- Personality Traits: ${traits}
 
-            Your response should include the following sections with clear headings:
+Your response must include these sections:
 
-            1. Introduction:
-            A short, supportive introduction (2–3 sentences) explaining how the analysis will help the user.
+1. Introduction:
+A short, supportive introduction (2–3 sentences) explaining how the analysis will help the user.
 
-            2. Top 3 Career Paths:
-            List three recommended career options.
-            For each, explain why it suits the user's profile.
+2. Top 3 Career Paths (Beginner → Intermediate → Advanced order):
+List three realistic career roles starting from the most entry-level role, then intermediate, then advanced.
+For each, explain why it suits the user's profile based on their validated skills, interests, and goals.
 
-            3. Career Roadmap for Each Path:
-            Step-by-step guide from beginner to expert.
-            Mention relevant courses, certifications, or skills to learn.
-            Include estimated duration for each stage.
+3. Career Roadmap for Each Path:
+For each career path, give a step-by-step guide from beginner to expert.
+Include specific skills to learn, certifications or courses to take, and an estimated timeline for each stage.
 
-            4. Key Skills to Focus On:
-            Split into Technical Skills and Soft Skills.
+4. Key Skills to Focus On:
+Split into Technical Skills and Soft Skills, only including skills relevant to the career paths.
 
-            5. Learning Platforms:
-            Suggest free or affordable learning resources (YouTube, Coursera, etc.)
+5. Learning Platforms:
+Recommend free or affordable resources (e.g., YouTube, Coursera, Udemy) relevant to the skills above.
 
-            6. Salary Expectations:
-            Mention average salary ranges for Entry, Mid, and Senior levels.
-
-            7. Mistakes to Avoid:
-            List common pitfalls and how to stay on track.
-
-            Ensure the content is easy to copy and read in a UI. Keep language friendly, clear, and inspiring.
-            Do not include symbols like "**", "-", or markdown formatting. Use only plain text with line breaks.`;
+Rules:
+- Ignore irrelevant or false data.
+- Do not recommend advanced roles unless the user’s skills/education clearly support them.
+- Keep the tone friendly, clear, and inspiring.
+- Output must be easy to copy and display in a UI, with line breaks for readability.
+`;
 
     try {
         const response = await axios.post('https://openrouter.ai/api/v1/chat/completions',

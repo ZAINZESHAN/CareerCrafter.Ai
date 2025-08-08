@@ -21,6 +21,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContect";
 import { toast } from "react-toastify";
+import ReactMarkdown from "react-markdown";
 
 const { Title, Text } = Typography;
 
@@ -152,11 +153,15 @@ const Career = () => {
                 ]}
               >
                 <Text>
-                  {expandedIds.includes(careerPaths._id)
-                    ? careerPaths.suggestion
-                    : careerPaths.suggestion.split(" ").slice(0, 100).join(" ") + "..."
-                  }
+                  {expandedIds.includes(careerPaths._id) ? (
+                    <div className="career-content prose max-w-full text-base prose-blue">
+                      <ReactMarkdown children={careerPaths.suggestion || "No summary available."} />
+                    </div>
+                  ) : (
+                    <ReactMarkdown children={careerPaths.suggestion.split(" ").slice(0, 100).join(" ") + "..."} />
+                  )}
                 </Text>
+
                 <Button
                   type="link"
                   onClick={() => toggleExpand(careerPaths._id)}
@@ -168,8 +173,9 @@ const Career = () => {
             </Col>
           ))}
         </Row>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 

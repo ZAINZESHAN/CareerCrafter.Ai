@@ -21,6 +21,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContect";
 import { toast } from "react-toastify";
+import ReactMarkdown from "react-markdown";
 
 const { Title, Text } = Typography;
 
@@ -31,23 +32,23 @@ const Resume = () => {
     const navigate = useNavigate();
     const { resumeId } = useParams();
 
-   useEffect(() => {
-    const fetchResumes = async () => {
-        if (!token) return;
+    useEffect(() => {
+        const fetchResumes = async () => {
+            if (!token) return;
 
-        try {
-            const response = await axios.get(`${backend_Url}/api/resume`, {
-                headers: { token },
-                withCredentials: true,
-            });
-            setResumes(response.data.resumes || []);
-        } catch (err) {
-            console.error("Error fetching resumes", err);
-        }
-    };
+            try {
+                const response = await axios.get(`${backend_Url}/api/resume`, {
+                    headers: { token },
+                    withCredentials: true,
+                });
+                setResumes(response.data.resumes || []);
+            } catch (err) {
+                console.error("Error fetching resumes", err);
+            }
+        };
 
-    fetchResumes();
-}, [token]);
+        fetchResumes();
+    }, [token]);
 
     const handleDelete = async (resumeId) => {
         try {
@@ -144,7 +145,9 @@ const Resume = () => {
                                     </Popconfirm>,
                                 ]}
                             >
-                                <Text>{resume.aiResume || "No summary available."}</Text>
+                                <div className="career-content prose max-w-full text-base prose-blue">
+                                    <ReactMarkdown children={resume.aiResume || "No summary available."} />
+                                </div>
                             </Card>
                         </Col>
                     ))}

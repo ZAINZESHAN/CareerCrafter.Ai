@@ -10,6 +10,7 @@ const Login = () => {
     const { backend_Url, navigate, setToken } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading , setLoading] = useState('false')
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -75,7 +76,7 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <div className="flex justify-center mt-8"> {/* Centering the button */}
+                    <div className="flex justify-center mt-8">
                         <button
                             type="submit"
                             className="text-white bg-blue-600 w-full cursor-pointer hover:bg-blue-700 font-bold py-3 rounded"

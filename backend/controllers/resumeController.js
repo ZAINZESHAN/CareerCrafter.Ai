@@ -7,41 +7,62 @@ const generateResume = async (req, res) => {
 
     const userId = req.userId;
     const prompt = `
-                    You are a professional resume-building AI.
-                    Your task is to generate a simple, clean, and professional resume using the user’s information below. Follow these rules:
-                    Rules:
-                    Keep all sections structured and readable.
-                    Always include all sections: Personal Info, Summary, Education, Experience, Skills, and Projects.
-                    Highlight section headings.
-                    Remove any unnecessary lines or characters.
-                    User Info:
-                    Name: ${name}
-                    Email: ${email}
-                    Phone: ${phone}
-                    Education: ${education}
-                    Experience: ${experience}
-                    Skills: ${skills}
-                    Projects: ${projects}
+You are a professional resume-building AI for a modern career website.
+Your task is to generate a clean, professional, and well-structured resume from the given user data.
 
-                    Resume Structure:
-                    Name: ${name}
-                    Email: ${email}
-                    Phone: ${phone}
+### Rules:
+1. Always use clear section headings (e.g., **Education**, **Skills**) — bold them for highlight.
+2. Show data exactly as provided by the user. Do NOT add any extra sample text unless instructed.
+3. No unnecessary symbols, lines, or decorative characters.
+4. Keep spacing minimal and consistent.
+5. Order of sections must be: Personal Information → Professional Summary → Education → Work Experience → Skills → Projects.
+6. If Work Experience or Projects is empty, add a short, professional 2–3 line statement for a fresher.
+7. For Skills, Projects, and Experience, if data is provided, write them in concise, professional 2–3 lines each.
 
-                    Professional Summary:
-                    A motivated software developer passionate about building modern web applications.
-                    Education:
-                    ${education}
-                    Work Experience:
-                    ${experience || "I am a fresher with no formal experience."}
-                    Skills:
-                    ${skills}
-                    Projects:
-                    ${projects || "Portfolio Website – Created using React."}
+---
 
-                    Additional Instructions:
-                    Ensure the resume is neat and UI-friendly.
-                    Remove decorative lines or symbols.`
+### User Information:
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Education: ${education}
+Work Experience: ${experience}
+Skills: ${skills}
+Projects: ${projects}
+
+---
+
+### Output Format:
+
+**Personal Information**
+Name: ${name}  
+Email: ${email}  
+Phone: ${phone}
+
+**Professional Summary**
+A motivated and detail-oriented professional eager to contribute skills and learn in a dynamic environment.
+
+**Education**
+${education}
+
+**Work Experience**
+${experience && experience.trim() !== ""
+            ? experience
+            : "Fresher – Ready to take on challenging roles and grow in the industry."
+        }
+
+**Skills**
+${skills && skills.trim() !== ""
+            ? skills
+            : "Quick learner, adaptable, and eager to acquire new skills."
+        }
+
+**Projects**
+${projects && projects.trim() !== ""
+            ? projects
+            : "Portfolio Website – Built as a personal learning project."
+        }
+`;
 
 
     try {
@@ -79,6 +100,7 @@ const generateResume = async (req, res) => {
     }
 };
 
+
 const getAllResumes = async (req, res) => {
     try {
 
@@ -105,4 +127,4 @@ const deleteResume = async (req, res) => {
     }
 }
 
-export {deleteResume, generateResume, getAllResumes }
+export { deleteResume, generateResume, getAllResumes }
