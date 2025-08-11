@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import 'tailwindcss';
+
+* {
+  font-family: Outfit;
+}
+
+.prata-regular {
+  font-family: 'Prata', serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.career-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.career-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.career-content {
+  line-height: 1.7;
+}
+
+.career-content h2,
+.career-content h3 {
+  color: #1677ff;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.career-content ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+.career-content p {
+  margin-bottom: 0.75rem;
+}

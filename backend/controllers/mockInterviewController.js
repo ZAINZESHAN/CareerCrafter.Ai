@@ -1,0 +1,107 @@
+import axios from 'axios';
+
+const generateInterviewQuestions = async (req, res) => {
+    const { jobRole } = req.body;
+    const prompt = `
+                    Generate 10 multiple-choice questions for the job role: ${jobRole}.
+                    Each question must include:
+                    - A single question line
+                    - Four answer options labeled A, B, C, and D
+                    - One correct answer, randomly chosen from A, B, C, or D, labeled like: Answer: X (where X is A, B, C, or D)
+                    - Ensure that only one answer is correct among the four options.
+
+                    Do not number the questions. Strictly follow this format:
+
+                    Question: What is ...?
+                    A. Option A
+                    B. Option B
+                    C. Option C
+                    D. Option D
+
+                    Only output the 10 questions in this format, without extra explanation or headers.
+                    `;
+
+    try {
+        const response = await axios.post('https://openrouter.ai/api/v1/chat/completions',
+            {
+                model: "mistralai/mistral-7b-instruct:free",
+                messages: [{ role: 'user', content: prompt }],
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+                    'HTTP-Referer': 'https://career-crafter-ai.vercel.app',
+                    'X-Title': 'CareerCrafterAI',
+                },
+            }
+        );
+
+        console.log("Response =>", response)
+
+        const result = response.data.choices?.[0]?.message?.content || "No result returned.";
+        
+        const rawQuestions = result.split('\n\n').filter(Boolean); // remove empty
+        const questions = rawQuestions.slice(0, 10).map((q) => {
+            const parts = q.split('\n').filter(Boolean);
+            if (parts.length < 6) return null;
+
+            const questionText = parts[0].replace(/^Question:\s*/i, '').trim();
+            const options = [
+                parts[1].replace(/^A\.\s*/i, '').trim(),
+                parts[2].replace(/^B\.\s*/i, '').trim(),
+                parts[3].replace(/^C\.\s*/i, '').trim(),
+                parts[4].replace(/^D\.\s*/i, '').trim(),
+            ];
+
+            const rawAnswer = parts[5].replace(/^Answer:\s*/i, '').trim();
+            const answerLetter = rawAnswer.match(/[A-D]/i)?.[0]?.toUpperCase() || null;
+
+            return {
+                question: questionText,
+                options,
+                answer: options['ABCD'.indexOf(answerLetter)] || "Answer not found"
+            };
+        }).filter(Boolean);
+
+        const validQuestions = questions.filter(q => {
+            const correctAnswers = questions.filter(question => question.answer === q.answer);
+            return correctAnswers.length === 1;
+        });
+
+        res.json({ success: true, questions: validQuestions });
+
+    } catch (error) {
+        console.error("OpenRouter API Error:", error.response?.data || error.message);
+        res.status(500).json({ success: false, error: error.message });
+    }
+}
+
+const submitInterviewAnswers = async (req, res) => {
+    const { questions, submittedAnswers } = req.body;
+
+    try {
+        if (!questions || !submittedAnswers || questions.length !== submittedAnswers.length) {
+            return res.status(400).json({ success: false, message: "Invalid submission data" });
+        }
+
+        let score = 0;
+
+        questions.forEach((q, index) => {
+            const correctAnswer = q.answers;
+            const userAnswer = submittedAnswers[index];
+
+            if (
+                userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase()
+            ) {
+                score++;
+            }
+        });
+
+        res.json({ success: true, score });
+    } catch (error) {
+        console.error("Answer Evaluation Error:", error);
+        res.status(500).json({ success: false, message: "Server error while evaluating answers" });
+    }
+};
+
+export { generateInterviewQuestions, submitInterviewAnswers };
