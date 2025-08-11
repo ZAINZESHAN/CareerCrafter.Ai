@@ -96,7 +96,7 @@ const Contact = () => {
             loading={loading}
             className="px-8"
           >
-            Send Message
+            Send Message:
           </Button>
         </div>
       </form>
