@@ -20,15 +20,23 @@ app.use(express.json());
 
 // CORS Configuration
 
-    app.use(cors({
-        origin: [
-            "https://career-crafter-ai-pmv6.vercel.app",
-            "http://localhost:5173"
-        ],
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization", "token"],
-        credentials: true
-    }));
+app.use(cors({
+    origin: [
+        "https://career-crafter-ai-pmv6.vercel.app",
+        "http://localhost:5173"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "token"],
+    credentials: true
+}));
+
+
+console.log({
+    PORT: process.env.PORT,
+    Mongo_URL: process.env.MONGODB_URL,
+    Jwt_Secret: process.env.JWT_SECRET,
+    openAPi: process.env.OPENROUTER_API_KEY
+});
 
 // API Endpoints
 app.use('/api/user', userRouter);
