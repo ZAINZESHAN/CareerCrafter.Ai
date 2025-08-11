@@ -1,11 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
         <footer className="bg-white border-t border-gray-200 text-sm text-gray-700">
             <div className="max-w-7xl py-2 sm:py-12 grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr] gap-4 sm:gap-10">
-                {/* Brand Description */}
                 <div>
                     <p className="text-[16px] sm:text-[20px] font-bold text-[#1677ff] mb-4">CareerCrafter.AI</p>
                     <p className="text-gray-600">
@@ -18,7 +16,6 @@ const Footer = () => {
 
                 </div>
 
-                {/* Company Links */}
                 <div>
                     <p className="text-[16px] sm:text-[20px] font-bold text-[#1677ff] mb-4">Company</p>
                     <ul className="space-y-2 text-gray-600">
@@ -34,7 +31,6 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                {/* Contact Info */}
                 <div>
                     <p className="text-[16px] sm:text-[20px] font-bold text-[#1677ff] mb-4">Get In Touch</p>
                     <ul className="space-y-2 text-gray-600">
@@ -44,7 +40,6 @@ const Footer = () => {
                 </div>
             </div>
 
-            {/* Bottom Bar */}
             <div className="border-t border-gray-200 py-5 text-center text-gray-500 text-xs">
                 © 2024 CareerCrafter.AI — All Rights Reserved.
             </div>
