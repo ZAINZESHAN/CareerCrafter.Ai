@@ -31,9 +31,6 @@ const Footer = () => {
                         <li>
                             <Link to="/contact" className="hover:text-[#1677ff] transition">Contact</Link>
                         </li>
-                        <li>
-                            <Link to="/jobs" className="hover:text-[#1677ff] transition">View Jobs</Link>
-                        </li>
                     </ul>
                 </div>
 
