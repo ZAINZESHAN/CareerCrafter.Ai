@@ -34,7 +34,7 @@ const Footer = () => {
                 <div>
                     <p className="text-[16px] sm:text-[20px] font-bold text-[#1677ff] mb-4">Get In Touch</p>
                     <ul className="space-y-2 text-gray-600">
-                        <li>📞 +1-212-246-5543</li>
+                        <li>📞 +92-309-2140037</li>
                         <li>📧 contact@careercrafter.ai</li>
                     </ul>
                 </div>
